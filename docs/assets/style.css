@@ -1,0 +1,163 @@
+/* Group Checkan – Download-Seite. Farben und Formen stammen aus der App (Dunkel/Hell folgt dem Gerät).
+   Das Glitch-Thema (RGB-Versatz bei Logo, Titel und Knopf) ist ein dezenter Effekt: kurz, selten,
+   ohne Blitzen, und bei „Bewegung reduzieren“ komplett aus. */
+
+:root {
+  color-scheme: dark light;
+  --bg: #0f131b; --surface: #1a202b; --line: #2c3443;
+  --text: #e9edf5; --muted: #a5aec0; --faint: #8591a8;
+  --primary: #3b5bfd; --accent: #7b93ff;
+  --ok: #34d27a; --pick: #fbbf24; --sick: #f87171;
+  --g1: #38bdf8; --g2: #ec4899;           /* Glitch-Farben = Hellblau und Pink aus den App-Gruppen */
+  --scan: rgba(255, 255, 255, .028);
+  --glow: rgba(59, 91, 253, .42);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f6fb; --surface: #ffffff; --line: #dfe4ee;
+    --text: #18202f; --muted: #4f5a72; --faint: #5f6a7f;
+    --accent: #3b5bfd;
+    --ok: #16a34a; --pick: #b45309; --sick: #dc2626;
+    --scan: rgba(0, 0, 0, .022);
+    --glow: rgba(59, 91, 253, .3);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; margin: 0; }
+body {
+  background: radial-gradient(120% 60% at 50% 0%, rgba(59, 91, 253, .34), transparent 60%), var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24px 20px 20px;
+}
+/* feine Scanlines als Glitch-Hintergrund */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
+}
+main, footer { position: relative; z-index: 1; }
+main { width: 100%; max-width: 400px; text-align: center; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Logo ---------- */
+.logo-wrap { display: inline-block; line-height: 0; animation: logo-split 8s steps(1, end) infinite -5.78s; }
+.logo { width: 128px; height: 128px; border-radius: 28px; box-shadow: 0 10px 40px var(--glow); }
+
+/* ---------- Titel mit Glitch ---------- */
+h1 { margin: 22px 0 6px; font-size: 34px; font-weight: 900; letter-spacing: -1px; line-height: 1.1; }
+.glitch { position: relative; display: inline-block; }
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  content: attr(data-text) / "";           /* Bildschirmleser lesen die Kopie nicht mit */
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+}
+.glitch::before { color: var(--g1); animation: glitch-a 8s steps(1, end) infinite -5.78s; }
+.glitch::after  { color: var(--g2); animation: glitch-b 8s steps(1, end) infinite -5.78s; }
+
+.sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+.platform { display: block; margin-top: 6px; color: var(--faint); font-size: 13px; }
+
+/* ---------- Funktions-Chips (wie die Status-Kacheln der App) ---------- */
+.chips { list-style: none; margin: 0 0 26px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px 6px 8px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); font-size: 12.5px; font-weight: 600; white-space: nowrap;
+}
+.chip svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.chip.ok svg { color: var(--ok); } .chip.pick svg { color: var(--pick); } .chip.sick svg { color: var(--sick); }
+
+/* ---------- Download-Knopf ---------- */
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  padding: 16px 20px; border-radius: 16px; border: 0;
+  background: linear-gradient(135deg, #4565f7, #2d45d8); color: #fff;
+  text-decoration: none; font-weight: 800; font-size: 17px;
+  box-shadow: 0 8px 28px var(--glow);
+  transition: transform .08s ease, filter .15s ease;
+}
+.btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.btn:hover { filter: brightness(1.08); animation: btn-glitch .32s steps(1, end) 1; }
+.btn:focus-visible { animation: btn-glitch .32s steps(1, end) 1; outline-color: var(--text); }
+.btn:active { transform: scale(.98); }
+
+.meta { margin: 12px 0 0; min-height: 21px; color: var(--muted); font-size: 13.5px; }
+.hint { margin: 20px 0 0; color: var(--faint); font-size: 12.5px; }
+
+/* ---------- Hilfe-Box ---------- */
+.help { margin: 16px 0 0; text-align: left; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.help summary { cursor: pointer; padding: 11px 14px; color: var(--muted); font-size: 13px; font-weight: 600; list-style: none; text-align: center; }
+.help summary::-webkit-details-marker { display: none; }
+.help summary:hover { color: var(--text); }
+.help .body { padding: 0 14px 12px; color: var(--faint); font-size: 12.5px; line-height: 1.6; }
+.help .body p { margin: 0 0 8px; }
+code { font: 11.5px/1.5 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; color: var(--muted); word-break: break-all; }
+
+.store {
+  display: inline-block; margin-top: 22px; padding: 9px 18px; border: 1px solid var(--line); border-radius: 22px;
+  color: var(--muted); text-decoration: none; font-size: 13.5px;
+}
+.store:hover { border-color: var(--accent); color: var(--text); }
+
+/* ---------- Fußbereich ---------- */
+footer { width: 100%; max-width: 460px; margin-top: 44px; color: var(--faint); font-size: 11.5px; line-height: 1.55; text-align: center; }
+.legal { margin-top: 14px; text-align: left; }
+.legal details { border-top: 1px solid var(--line); padding: 8px 0; }
+.legal summary { cursor: pointer; color: var(--muted); font-size: 12px; list-style: none; text-align: center; }
+.legal summary::-webkit-details-marker { display: none; }
+.legal summary:hover { text-decoration: underline; }
+.legal .body { margin: 8px 0 4px; color: var(--faint); font-size: 12px; line-height: 1.6; }
+.legal .body h2 { margin: 12px 0 2px; color: var(--muted); font-size: 12px; }
+.legal .body p { margin: 0 0 6px; }
+
+/* ---------- Rechtstexte (eigene Seiten) ---------- */
+body.doc { justify-content: flex-start; }
+.doc-main { width: 100%; max-width: 640px; text-align: left; }
+.back { display: inline-block; margin: 4px 0 18px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
+.back:hover { text-decoration: underline; }
+.legal-doc { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px 14px; font-size: 14.5px; }
+.legal-doc h1 { margin: 0 0 2px; font-size: 24px; letter-spacing: -.3px; }
+.legal-doc h3 { margin: 20px 0 4px; font-size: 15px; }
+.legal-doc p { margin: 0 0 8px; color: var(--muted); }
+.legal-doc ul { margin: 4px 0 8px; padding-left: 20px; color: var(--muted); }
+.legal-doc .hint { margin: 0 0 6px; }
+
+/* ---------- Glitch-Animationen ----------
+   Alle 8 s ein kurzer Ausschlag (~0,6 s), die übrige Zeit ruhig. Das erste Mal ca. 1,5 s nach dem Laden. */
+@keyframes glitch-a {
+  0%, 91%, 100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
+  92% { opacity: 1; clip-path: inset(12% 0 62% 0); transform: translate(-4px, 0); }
+  94% { clip-path: inset(58% 0 18% 0); transform: translate(3px, 0); }
+  96% { clip-path: inset(34% 0 44% 0); transform: translate(-2px, 0); }
+  98% { clip-path: inset(76% 0 6% 0); transform: translate(4px, 0); }
+}
+@keyframes glitch-b {
+  0%, 92%, 100% { opacity: 0; clip-path: inset(0 0 100% 0); transform: none; }
+  93% { opacity: 1; clip-path: inset(66% 0 12% 0); transform: translate(4px, 0); }
+  95% { clip-path: inset(20% 0 56% 0); transform: translate(-3px, 0); }
+  97% { clip-path: inset(48% 0 30% 0); transform: translate(3px, 0); }
+  99% { clip-path: inset(6% 0 82% 0); transform: translate(-4px, 0); }
+}
+@keyframes logo-split {
+  0%, 91%, 100% { filter: none; transform: none; }
+  92% { filter: drop-shadow(-4px 0 var(--g1)) drop-shadow(4px 0 var(--g2)); transform: translate(2px, 0); }
+  94% { filter: drop-shadow(3px 0 var(--g1)) drop-shadow(-3px 0 var(--g2)); transform: translate(-3px, 1px); }
+  96% { filter: drop-shadow(-2px 0 var(--g1)) drop-shadow(2px 0 var(--g2)); transform: skewX(-5deg); }
+  98% { filter: none; transform: translate(1px, 0); }
+}
+@keyframes btn-glitch {
+  0%   { text-shadow: -2px 0 var(--g1), 2px 0 var(--g2); transform: translate(-1px, 0); }
+  35%  { text-shadow: 2px 0 var(--g1), -2px 0 var(--g2); transform: translate(1px, 0); }
+  70%  { text-shadow: -1px 0 var(--g1), 1px 0 var(--g2); transform: none; }
+  100% { text-shadow: none; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-wrap, .glitch::before, .glitch::after, .btn:hover, .btn:focus-visible { animation: none !important; }
+  .btn { transition: none; }
+  body::before { display: none; }
+}

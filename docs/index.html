@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0f131b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src https://api.github.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Group Checkan Download</title>
+<meta name="description" content="Group Checkan – Anwesenheit abhaken, schnell, übersichtlich und offline. Android-App für Betreuungsgruppen; hier die aktuelle Version herunterladen.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+<main>
+  <div class="logo-wrap"><img class="logo" alt="Group Checkan" src="assets/logo.png" width="128" height="128"></div>
+  <h1><span class="glitch" data-text="Group Checkan">Group Checkan</span></h1>
+  <p class="sub">Anwesenheit abhaken – schnell, übersichtlich und offline. Für Gruppen, Horte und AGs.<span class="platform">(nur für Android)</span></p>
+
+  <ul class="chips" aria-label="Funktionen">
+    <li class="chip ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Anwesend</li>
+    <li class="chip pick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg>Früher abgeholt</li>
+    <li class="chip sick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></svg>Krank</li>
+  </ul>
+
+  <a id="dl" class="btn" href="https://github.com/arthurtschik/Group_Checkan/releases/latest/download/Group-Checkan.apk" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1"/></svg>
+    Hier downloaden
+  </a>
+  <p id="meta" class="meta" aria-live="polite">Suche aktuelle Version …</p>
+  <p class="hint">Nach dem Download die Datei öffnen und die Installation bestätigen (eventuell musst du „Installation aus unbekannten Quellen“ erlauben). Voraussetzung: Android 7.0 oder neuer. Updates findest du später direkt in der App unter <b>Einstellungen → App-Update</b> – deine Daten bleiben dabei erhalten.</p>
+
+  <details class="help">
+    <summary>Android zeigt eine Warnung an?</summary>
+    <div class="body">
+      <p>Group Checkan ist nicht im Play Store und kommt von einem Einzelentwickler. Deshalb warnen Android und Google Play Protect bei jeder solchen App („Unbekannte Quelle“, manchmal auch „könnte schädlich sein“). Das ist eine Standard-Vorsichtsmaßnahme, kein Hinweis auf einen konkreten Fund. Der Quellcode ist öffentlich auf GitHub einsehbar.</p>
+      <p>Installiere die App nur, wenn du den Link von mir oder aus meinem Umfeld hast. Ob die Datei echt ist, erkennst du am Fingerabdruck des Signaturzertifikats (SHA-256):</p>
+      <p><code>4C:C4:B3:A7:45:64:A3:E2:58:F8:53:82:4E:19:20:5F:1E:CF:7C:FA:F2:FD:AB:9D:23:6C:B0:FB:8D:95:8E:04</code></p>
+      <p id="digest" hidden>Prüfsumme der aktuellen Datei (SHA-256): <code id="digestv"></code></p>
+    </div>
+  </details>
+
+  <a class="store" href="https://arthurtschik.github.io/TschikStore/">Alle Apps</a>
+  <noscript><p class="meta">Der Knopf lädt auch ohne JavaScript direkt die aktuelle Version.</p></noscript>
+</main>
+
+<footer>
+  Group Checkan ist ein privates, nicht kommerzielles Hobbyprojekt. Diese Seite leitet nur auf den Download der Datei bei GitHub weiter.
+  Soweit gesetzlich zulässig, übernehme ich für den Download, die Datei und die Nutzung der App keine Haftung; die Nutzung erfolgt auf eigenes Risiko.
+  Die App ist ein persönliches Hilfsmittel und ersetzt keine vorgeschriebenen Anwesenheits-, Aufsichts- oder Dokumentationsnachweise.
+
+  <div class="legal">
+    <details>
+      <summary>Impressum</summary>
+      <div class="body">
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>Arthurtschik<br>c/o Block Services<br>Stuttgarter Str. 106<br>70736 Fellbach</p>
+        <h2>Kontakt</h2>
+        <p>E-Mail: arthurtschik.business@gmail.com</p>
+        <h2>Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV)</h2>
+        <p>Arthurtschik, Anschrift wie oben.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Datenschutz</summary>
+      <div class="body">
+        <h2>Verantwortlicher</h2>
+        <p>Arthurtschik, c/o Block Services, Stuttgarter Str. 106, 70736 Fellbach, E-Mail: arthurtschik.business@gmail.com</p>
+        <h2>Diese Seite</h2>
+        <p>Die Seite speichert nichts bei dir, setzt keine Cookies und enthält keine Werbung oder Statistik. Sie wird bei GitHub Pages (GitHub Inc., USA) bereitgestellt, das beim Aufruf technisch bedingt deine IP-Adresse verarbeitet, zum Beispiel in Server-Protokollen. Das ist für die Auslieferung der Seite nötig (Art. 6 Abs. 1 lit. f DSGVO).</p>
+        <h2>Download</h2>
+        <p>Der Knopf führt zu GitHub (GitHub Inc., USA). Beim Herunterladen verarbeitet GitHub deine IP-Adresse nach den eigenen Datenschutzbestimmungen.</p>
+        <p>Beim Öffnen fragt die Seite bei GitHub das neueste Release ab, um die Version und den Download-Link anzuzeigen. Dabei erhält GitHub deine IP-Adresse.</p>
+        <h2>Link „Alle Apps“</h2>
+        <p>Der Link führt zur Hauptseite mit allen Apps (ebenfalls GitHub Pages). Erst wenn du ihn antippst, wird eine Verbindung dorthin aufgebaut.</p>
+        <h2>Deine Rechte</h2>
+        <p>Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie Beschwerde bei einer Datenschutz-Aufsichtsbehörde. Schreib dafür an die oben genannte E-Mail-Adresse.</p>
+        <p>Die Datenschutzerklärung der App selbst findest du in der App unter Einstellungen und <a href="datenschutz.html">hier</a>. Die <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> stehen ebenfalls dort.</p>
+        <p>Stand: November 2026</p>
+      </div>
+    </details>
+  </div>
+</footer>
+</body>
+</html>

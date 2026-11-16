@@ -3,6 +3,8 @@
 Offline-App zum Abhaken der Anwesenheit von Kindern, mit eigener Liste für jeden Wochentag (Mo–Fr).
 Alle Daten bleiben auf dem Gerät – kein Konto, keine Cloud. Internet wird nur für die optionale Update-Prüfung genutzt.
 
+**Download-Seite:** <https://arthurtschik.github.io/Group_Checkan/>
+
 **Download:** die aktuelle `Group-Checkan.apk` unter [Releases](../../releases) herunterladen und auf dem
 Android-Gerät öffnen (Android 7.0 oder neuer; einmalig „Installation aus unbekannten Quellen“ erlauben).
 
@@ -62,6 +64,9 @@ Android automatisch.
 | `app/src/.../MainActivity.java` | Android-Hülle: WebView, verschlüsselte Speicherung, Teilen, Datei-Dialoge, Vibration, Updates |
 | `app/src/.../ApkProvider.java` | übergibt ein heruntergeladenes Update an den Android-Installer |
 | `build/build.py` | Build ohne Android SDK/Gradle: Manifest, Ressourcen, Icon, Dex, Signatur |
+| `docs/` | Download-Seite für GitHub Pages (`index.html`, Rechtstexte, `assets/`); Release Notes in `docs/releases/` |
+| `build/site.py` | erzeugt `docs/datenschutz.html` und `docs/nutzungsbedingungen.html` aus den Rechtstexten der App |
+| `build/site-assets.js` | erzeugt Logo und Favicons der Download-Seite aus dem App-Icon |
 | `build/axml.py` | Encoder für binäres Android-XML und `resources.arsc` |
 
 ## Bauen
