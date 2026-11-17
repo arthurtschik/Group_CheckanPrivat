@@ -17,6 +17,9 @@ Bei **jedem neuen Release**:
    veröffentlicht oder den Text dort geändert, holt `python3 build/site.py --github` den veröffentlichten Text.
    Das Ergebnis immer **mit dem Release committen**.
 4. Tests laufen lassen, committen, pushen. Dem Nutzer APK, Tag, Release-Name und Beschreibung zum Kopieren geben.
+   Erinnern: Die angehängte Datei muss genau `Group-Checkan.apk` heißen (Releases sind unveränderlich – ein
+   falscher Name lässt sich danach nicht mehr korrigieren). Nach dem Veröffentlichen mit
+   `gh api repos/arthurtschik/Group_Checkan/releases/latest` Name und SHA-256 der APK prüfen.
 
 ## Download-Seite (`docs/`)
 
