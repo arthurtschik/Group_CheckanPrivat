@@ -65,7 +65,7 @@ Android automatisch.
 | `app/src/.../ApkProvider.java` | übergibt ein heruntergeladenes Update an den Android-Installer |
 | `build/build.py` | Build ohne Android SDK/Gradle: Manifest, Ressourcen, Icon, Dex, Signatur |
 | `docs/` | Download-Seite für GitHub Pages (`index.html`, Rechtstexte, `assets/`); Release Notes in `docs/releases/` |
-| `build/site.py` | erzeugt `docs/datenschutz.html` und `docs/nutzungsbedingungen.html` aus den Rechtstexten der App |
+| `build/site.py` | bei jedem Release: schreibt „Was ist neu?“ (aus `docs/releases/`, oder mit `--github` vom veröffentlichten Release) in die Download-Seite und erzeugt deren Rechtstexte aus den Texten der App |
 | `build/site-assets.js` | erzeugt Logo und Favicons der Download-Seite aus dem App-Icon |
 | `build/axml.py` | Encoder für binäres Android-XML und `resources.arsc` |
 

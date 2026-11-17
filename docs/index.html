@@ -17,30 +17,44 @@
 </head>
 <body>
 <main>
-  <div class="logo-wrap"><img class="logo" alt="Group Checkan" src="assets/logo.png" width="128" height="128"></div>
-  <h1><span class="glitch" data-text="Group Checkan">Group Checkan</span></h1>
-  <p class="sub">Anwesenheit abhaken – schnell, übersichtlich und offline. Für Gruppen, Horte und AGs.<span class="platform">(nur für Android)</span></p>
+  <img class="logo" alt="Group Checkan" src="assets/logo.png" width="128" height="128">
+  <h1>Group Checkan</h1>
+  <p class="sub">Anwesenheit abhaken – schnell, übersichtlich und offline.<span class="platform">(nur für Android 7.0 oder neuer)</span></p>
 
-  <ul class="chips" aria-label="Funktionen">
-    <li class="chip ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Anwesend</li>
-    <li class="chip pick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg>Früher abgeholt</li>
-    <li class="chip sick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></svg>Krank</li>
-  </ul>
-
-  <a id="dl" class="btn" href="https://github.com/arthurtschik/Group_Checkan/releases/latest/download/Group-Checkan.apk" rel="noopener">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4 17v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1"/></svg>
-    Hier downloaden
-  </a>
-  <p id="meta" class="meta" aria-live="polite">Suche aktuelle Version …</p>
-  <p class="hint">Nach dem Download die Datei öffnen und die Installation bestätigen (eventuell musst du „Installation aus unbekannten Quellen“ erlauben). Voraussetzung: Android 7.0 oder neuer. Updates findest du später direkt in der App unter <b>Einstellungen → App-Update</b> – deine Daten bleiben dabei erhalten.</p>
-
-  <details class="news" id="news">
-    <summary id="newsTitle">Was ist neu?</summary>
-    <div class="news-body" id="newsBody">Die Neuerungen findest du bei den Release-Notizen auf GitHub. <a class="more" href="https://github.com/arthurtschik/Group_Checkan/releases/latest" rel="noopener">Alle Release-Notizen</a></div>
+  <a id="dl" class="btn" href="https://github.com/arthurtschik/Group_Checkan/releases/latest/download/Group-Checkan.apk" rel="noopener">Hier downloaden</a>
+  <p id="meta" class="meta" data-baked="1">Version 2.7</p>
+  <p class="hint">Nach dem Download die Datei öffnen und die Installation bestätigen (eventuell musst du „Installation aus unbekannten Quellen“ erlauben). Updates einfach über die bisherige Version installieren – deine Daten bleiben erhalten.</p>
+  <!--news:start-->
+  <details class="news" id="news" data-version="2.7">
+    <summary id="newsTitle">Was ist neu in 2.7?</summary>
+    <div class="news-body" id="newsBody">
+      <p>Die App wurde einer gründlichen Sicherheitsprüfung unterzogen. Dieses Update schließt alle dabei gefundenen Lücken. <strong>Bitte unbedingt installieren.</strong></p>
+      <p class="nh">🛡️ Was verbessert wurde</p>
+      <p class="nh">Geprüfte Updates</p>
+      <p>Vor der Installation eines Updates prüft die App jetzt selbst,</p>
+      <ul>
+      <li>dass es <strong>wirklich Group Checkan</strong> ist (Paketname),</li>
+      <li>dass es <strong>vom Entwickler signiert</strong> ist (fest hinterlegter Fingerabdruck des Zertifikats),</li>
+      <li>dass es <strong>neuer</strong> ist als die installierte Version.</li>
+      </ul>
+      <p>Damit kann auch jemand, der sich Zugriff auf das GitHub-Konto verschafft, über die Update-Funktion keine fremde oder veränderte App einschleusen.</p>
+      <p class="nh">Schutz vor präparierten Dateien</p>
+      <p>Eine manipulierte Datensicherung konnte bisher Programmcode in die App einschleusen. Jetzt werden alle gespeicherten und importierten Daten streng geprüft und alle Anzeigen abgesichert. Kaputte oder präparierte Dateien können die App auch nicht mehr unbrauchbar machen.</p>
+      <p class="nh">Weitere Härtung</p>
+      <ul>
+      <li>Die Oberfläche darf keinerlei Verbindungen nach außen aufbauen (zusätzliche Sperre per Sicherheitsrichtlinie)</li>
+      <li>Unnötige Zugriffsrechte der Oberfläche abgeschaltet, Schutz gegen das Überlagern durch andere Apps</li>
+      <li>Größenbegrenzung für importierte Dateien und Updates</li>
+      <li>Passwörter für verschlüsselte Sicherungen jetzt mindestens 8 Zeichen</li>
+      <li>Abgesicherter Build-Prozess (geprüfte Werkzeuge, Selbstkontrolle der Signatur)</li>
+      </ul>
+      <p>Alle Details: <a href="https://github.com/arthurtschik/Group_Checkan/blob/main/SECURITY.md" rel="noopener">SECURITY.md</a></p>
+      <a class="more" href="https://github.com/arthurtschik/Group_Checkan/releases/tag/v2.7" rel="noopener">Alle Release-Notizen</a>
+    </div>
   </details>
-
+  <!--news:end-->
   <a class="store" href="https://arthurtschik.github.io/TschikStore/">Alle Apps</a>
-  <noscript><p class="meta">Der Knopf lädt auch ohne JavaScript direkt die aktuelle Version.</p></noscript>
+  <noscript><p class="meta">Ohne JavaScript führt der Knopf direkt zur aktuellen Version bei GitHub.</p></noscript>
 </main>
 
 <footer>

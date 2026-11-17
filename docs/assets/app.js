@@ -1,6 +1,7 @@
 // Holt beim Öffnen das neueste Release von GitHub und setzt Version, Größe und den direkten APK-Link.
-// Zeigt außerdem „Was ist neu?“ aus dem Text des Releases.
-// Ohne JavaScript oder bei einem Fehler bleibt der Knopf auf dem festen „latest“-Link.
+// „Was ist neu?“ steht beim Veröffentlichen eines Releases schon fest in der Seite (build/site.py).
+// Dieses Skript ersetzt den Text nur, wenn auf GitHub eine andere Version liegt als die eingebaute.
+// Ohne JavaScript oder bei einem Fehler bleiben der eingebaute Text und der feste „latest“-Link.
 (function () {
   "use strict";
   // Feste Repository-ID: bleibt gleich, auch wenn das Repository umbenannt wird.
@@ -12,6 +13,8 @@
   var meta = document.getElementById("meta");
   var newsTitle = document.getElementById("newsTitle");
   var newsBody = document.getElementById("newsBody");
+  var newsBox = document.getElementById("news");
+  var baked = newsBox ? newsBox.getAttribute("data-version") : "";   // Version der eingebauten Neuerungen
   if (!btn || !meta) return;
 
   // Links aus Release-Texten nur für dieses Konto zulassen (nie javascript: oder fremde Adressen).
@@ -46,6 +49,7 @@
 
   function newsFallback(url) {
     if (!newsBody) return;
+    if (newsTitle) newsTitle.textContent = "Was ist neu?";
     newsBody.textContent = "Die Neuerungen findest du bei den Release-Notizen auf GitHub. ";
     newsBody.appendChild(moreLink(url));
   }
@@ -106,8 +110,8 @@
 
   // ---------- Release abfragen ----------
   function fallback() {
-    meta.textContent = "Die aktuelle Version findest du über den Knopf.";
-    newsFallback();
+    if (!meta.getAttribute("data-baked")) meta.textContent = "Die aktuelle Version findest du über den Knopf.";
+    if (!baked) newsFallback();
   }
   if (!window.fetch) { fallback(); return; }
 
@@ -140,7 +144,8 @@
       if (date && date !== "Invalid Date") parts.push(date);
       meta.textContent = parts.length ? parts.join(" · ") : "Aktuelle Version bereit zum Download";
 
-      showNews(rel);
+      // eingebaute Neuerungen nur ersetzen, wenn GitHub eine andere Version hat
+      if (!baked || (version && version !== baked)) showNews(rel);
     })
     .catch(fallback)
     .then(function () { if (timer) clearTimeout(timer); });
