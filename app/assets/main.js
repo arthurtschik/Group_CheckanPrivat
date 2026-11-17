@@ -445,15 +445,15 @@ const CONTACT_MAIL="arthurtschik.business@gmail.com";
 const IMPRINT_HTML=`<h2>Impressum</h2>
 <p>Arthurtschik<br>c/o Block Services<br>Stuttgarter Str. 106<br>70736 Fellbach</p>
 <p>Anfragen: ${CONTACT_MAIL}</p>
-<p class="hint">Group Checkan ist ein privates, nicht-kommerzielles Hobbyprojekt. Der Quellcode steht unter der MIT-Lizenz.</p>`;
+<p class="hint">Group Checkan ist ein privates, nicht-kommerzielles Hobbyprojekt und kostenlos.</p>`;
 function openImprint(){
   openSheet(`<div class="legal">${IMPRINT_HTML}</div><div class="actions"><button class="btn ghost" id="iMail">E-Mail schreiben</button><button class="btn" data-close>Schließen</button></div>`);
   $("#iMail").onclick=()=>{haptic("light");N&&N.contactMail&&N.contactMail()};
 }
 function openAbout(){
   openSheet(`<div class="about"><img src="data:," alt="" style="display:none"><div class="abadge">${I.check}</div><h2>Group Checkan</h2>
-    <p>Version ${esc(APP_VERSION)}</p><p class="hint">Anwesenheit abhaken – schnell, übersichtlich und offline.<br>Ein privates Hobbyprojekt · Quellcode unter MIT-Lizenz</p></div>
-    <div class="scard">${setRow("aRepo",I.list,"Projekt auf GitHub","Quellcode, Releases & Infos")}${setRow("aIssues",I.info,"Fehler melden / Ideen","über GitHub Issues")}${setRow("aImprint",I.users,"Impressum","")}</div>
+    <p>Version ${esc(APP_VERSION)}</p><p class="hint">Anwesenheit abhaken – schnell, übersichtlich und offline.<br>Ein privates Hobbyprojekt · kostenlos</p></div>
+    <div class="scard">${setRow("aRepo",I.list,"Projekt auf GitHub","Downloads, Versionen & Infos")}${setRow("aIssues",I.info,"Fehler melden / Ideen","über GitHub Issues")}${setRow("aImprint",I.users,"Impressum","")}</div>
     <div class="hint" style="margin-top:12px;text-align:center">Keine Werbung · kein Tracking · deine Daten bleiben auf dem Gerät</div>
     <div class="actions" style="margin-top:14px"><button class="btn block" data-close>Schließen</button></div>`);
   $("#aRepo").onclick=()=>{haptic("light");N&&N.openRepoPage&&N.openRepoPage(REPO_URL)};

@@ -336,7 +336,7 @@ public class MainActivity extends Activity {
      * No app data is sent. Android itself refuses an update that is not signed with the same key.
      */
     // The numeric repository id stays the same when the repository is renamed.
-    private static final String API_LATEST = "https://api.github.com/repositories/1452715470/releases/latest";
+    private static final String API_LATEST = "https://api.github.com/repositories/1462092325/releases/latest";
     private static final String OWNER_PREFIX = "https://github.com/arthurtschik/";
     private static final String WEB_PREFIX = "https://github.com/arthurtschik/Group_Checkan";
 

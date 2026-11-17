@@ -1,11 +1,15 @@
-# Group Checkan – Android-App
+# Group Checkan – Android-App (privater Quellcode)
+
+Öffentlich sind nur Download-Seite und Releases im Repository
+[arthurtschik/Group_Checkan](https://github.com/arthurtschik/Group_Checkan); sie werden mit
+`build/publish.py` aus diesem Repository erzeugt.
 
 Offline-App zum Abhaken der Anwesenheit von Kindern, mit eigener Liste für jeden Wochentag (Mo–Fr).
 Alle Daten bleiben auf dem Gerät – kein Konto, keine Cloud. Internet wird nur für die optionale Update-Prüfung genutzt.
 
 **Download-Seite:** <https://arthurtschik.github.io/Group_Checkan/>
 
-**Download:** die aktuelle `Group-Checkan.apk` unter [Releases](../../releases) herunterladen und auf dem
+**Download:** die aktuelle `Group-Checkan.apk` unter [Releases](https://github.com/arthurtschik/Group_Checkan/releases) herunterladen und auf dem
 Android-Gerät öffnen (Android 7.0 oder neuer; einmalig „Installation aus unbekannten Quellen“ erlauben).
 
 ## Funktionen
@@ -38,7 +42,7 @@ Android-Gerät öffnen (Android 7.0 oder neuer; einmalig „Installation aus unb
   Datei ist unlesbar. Für Nutzer ändert sich nichts (kein Passwort nötig).
 - **Kein Cloud-Backup, keine Geräteübertragung:** Die Daten werden nicht in Google-Backups oder beim
   Gerätewechsel übernommen. Für den Umzug die eigene Datensicherung verwenden.
-- **Datensicherung optional mit Passwort** (AES-256-GCM, Schlüssel per PBKDF2-SHA256 mit 310.000 Runden).
+- **Datensicherung optional mit Passwort** (AES-256-GCM, Schlüssel per PBKDF2-SHA256 mit 600.000 Runden).
 - **Alte Einträge automatisch löschen** (optional, für ausgewählte Profile): nach 1, 3, 6, 12 oder 24 Monaten.
 - **Geprüfte Updates:** Vor der Installation prüft die App Paketname, Signaturzertifikat und Versionsnummer.
 - Text-Exporte sind bewusst unverschlüsselt – beim Weitergeben auf den Empfänger achten.
@@ -68,6 +72,7 @@ Android automatisch.
 | `docs/` | Download-Seite für GitHub Pages (`index.html`, Rechtstexte, `assets/`); Release Notes in `docs/releases/` |
 | `build/site.py` | bei jedem Release: schreibt „Was ist neu?“ (aus `docs/releases/`, oder mit `--github` vom veröffentlichten Release) in die Download-Seite und erzeugt deren Rechtstexte aus den Texten der App |
 | `build/site-assets.js` | erzeugt Logo und Favicons der Download-Seite aus dem App-Icon |
+| `build/publish.py` | kopiert Download-Seite, `public/README.md` und `SECURITY.md` in den Clone des öffentlichen Repositorys |
 | `build/axml.py` | Encoder für binäres Android-XML und `resources.arsc` |
 
 ## Bauen
@@ -107,7 +112,8 @@ Release Notes der einzelnen Versionen: [`docs/releases/`](docs/releases/)
 
 ## Lizenz
 
-Der Quellcode steht unter der [MIT-Lizenz](LICENSE).
+Versionen bis 2.9 wurden mit Quellcode unter der [MIT-Lizenz](LICENSE) veröffentlicht. Ab 3.0 ist der
+Quellcode nicht mehr öffentlich; die App bleibt kostenlos.
 
 ## Impressum
 

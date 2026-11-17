@@ -34,7 +34,7 @@ Bitte **nicht** öffentlich als GitHub-Issue, sondern per E-Mail an arthurtschik
 GitHub Release ──HTTPS──▶ App lädt APK ──▶ Prüfung in der App ──▶ Android-Installer ──▶ Prüfung durch Android
 ```
 
-1. Abfrage nur von `api.github.com/repositories/1452715470/releases/latest` (feste Repository-ID),
+1. Abfrage nur von `api.github.com/repositories/1462092325/releases/latest` (feste ID des öffentlichen Repositorys `arthurtschik/Group_Checkan`),
    nur HTTPS, nur System-Zertifikate.
 2. Es werden nur `.apk`-Dateien aus Releases von `github.com/arthurtschik/…` akzeptiert, max. 50 MB.
 3. **Vor der Installation prüft die App selbst** (zweimal: nach dem Download und direkt vor dem Start des

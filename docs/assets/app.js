@@ -5,7 +5,7 @@
 (function () {
   "use strict";
   // Feste Repository-ID: bleibt gleich, auch wenn das Repository umbenannt wird.
-  var API = "https://api.github.com/repositories/1452715470/releases/latest";
+  var API = "https://api.github.com/repositories/1462092325/releases/latest";
   var OWNER = "https://github.com/arthurtschik/";
   var RELEASES = OWNER + "Group_Checkan/releases/latest";
 
