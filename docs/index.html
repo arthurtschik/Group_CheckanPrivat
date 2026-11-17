@@ -22,34 +22,39 @@
   <p class="sub">Anwesenheit abhaken – schnell, übersichtlich und offline.<span class="platform">(nur für Android 7.0 oder neuer)</span></p>
 
   <a id="dl" class="btn" href="https://github.com/arthurtschik/Group_Checkan/releases/latest/download/Group-Checkan.apk" rel="noopener">Hier downloaden</a>
-  <p id="meta" class="meta" data-baked="1">Version 2.7</p>
+  <p id="meta" class="meta" data-baked="1">Version 2.8</p>
   <p class="hint">Nach dem Download die Datei öffnen und die Installation bestätigen (eventuell musst du „Installation aus unbekannten Quellen“ erlauben). Updates einfach über die bisherige Version installieren – deine Daten bleiben erhalten.</p>
   <!--news:start-->
-  <details class="news" id="news" data-version="2.7">
-    <summary id="newsTitle">Was ist neu in 2.7?</summary>
+  <details class="news" id="news" data-version="2.8">
+    <summary id="newsTitle">Was ist neu in 2.8?</summary>
     <div class="news-body" id="newsBody">
-      <p>Die App wurde einer gründlichen Sicherheitsprüfung unterzogen. Dieses Update schließt alle dabei gefundenen Lücken. <strong>Bitte unbedingt installieren.</strong></p>
-      <p class="nh">🛡️ Was verbessert wurde</p>
-      <p class="nh">Geprüfte Updates</p>
-      <p>Vor der Installation eines Updates prüft die App jetzt selbst,</p>
+      <p>Nach einer zweiten, ausführlichen Prüfung (Sicherheit nach OWASP, Datenschutz nach DSGVO) bringt dieses Update mehr Kontrolle über die Daten der Kinder und schließt weitere Schwachstellen.</p>
+      <p class="nh">✨ Neu</p>
+      <p class="nh">Abwesenheit neutral erfassen</p>
+      <p>In den Einstellungen unter <strong>Datenschutz</strong> lässt sich „Krank“ durch <strong>„Entschuldigt“</strong> ersetzen – in der Liste, im Kalender und in allen Exporten, auch für bereits erfasste Einträge. So werden keine Gesundheitsangaben über Kinder festgehalten.</p>
+      <p class="nh">Kind vollständig löschen</p>
+      <p>Beim Löschen eines Kindes gibt es jetzt zwei Möglichkeiten:</p>
       <ul>
-      <li>dass es <strong>wirklich Group Checkan</strong> ist (Paketname),</li>
-      <li>dass es <strong>vom Entwickler signiert</strong> ist (fest hinterlegter Fingerabdruck des Zertifikats),</li>
-      <li>dass es <strong>neuer</strong> ist als die installierte Version.</li>
+      <li><strong>Aus den Stammdaten entfernen</strong> – erfasste Anwesenheiten bleiben erhalten (wie bisher)</li>
+      <li><strong>Vollständig löschen</strong> – entfernt das Kind samt aller erfassten Anwesenheiten, z. B. wenn Eltern die Löschung verlangen (mit „Rückgängig“)</li>
       </ul>
-      <p>Damit kann auch jemand, der sich Zugriff auf das GitHub-Konto verschafft, über die Update-Funktion keine fremde oder veränderte App einschleusen.</p>
-      <p class="nh">Schutz vor präparierten Dateien</p>
-      <p>Eine manipulierte Datensicherung konnte bisher Programmcode in die App einschleusen. Jetzt werden alle gespeicherten und importierten Daten streng geprüft und alle Anzeigen abgesichert. Kaputte oder präparierte Dateien können die App auch nicht mehr unbrauchbar machen.</p>
-      <p class="nh">Weitere Härtung</p>
+      <p class="nh">Hinweis bei Exporten</p>
+      <p>Enthält ein Export „krank“-Einträge, erinnert die App daran, ihn nur an Berechtigte weiterzugeben.</p>
+      <p class="nh">🔐 Datenschutz</p>
       <ul>
-      <li>Die Oberfläche darf keinerlei Verbindungen nach außen aufbauen (zusätzliche Sperre per Sicherheitsrichtlinie)</li>
-      <li>Unnötige Zugriffsrechte der Oberfläche abgeschaltet, Schutz gegen das Überlagern durch andere Apps</li>
-      <li>Größenbegrenzung für importierte Dateien und Updates</li>
-      <li>Passwörter für verschlüsselte Sicherungen jetzt mindestens 8 Zeichen</li>
-      <li>Abgesicherter Build-Prozess (geprüfte Werkzeuge, Selbstkontrolle der Signatur)</li>
+      <li>Die <strong>automatische Update-Prüfung ist jetzt standardmäßig aus</strong> und wird nur eingeschaltet, wenn du das Häkchen selbst setzt</li>
+      <li><strong>Überarbeiteter Datenschutzhinweis</strong>: wer verantwortlich ist, welche Daten bei der Update-Prüfung an GitHub gehen, Rechtsgrundlagen, Speicherdauer und deine Rechte. Weil sich der Hinweis geändert hat, wird er beim ersten Start einmal neu angezeigt.</li>
       </ul>
-      <p>Alle Details: <a href="https://github.com/arthurtschik/Group_Checkan/blob/main/SECURITY.md" rel="noopener">SECURITY.md</a></p>
-      <a class="more" href="https://github.com/arthurtschik/Group_Checkan/releases/tag/v2.7" rel="noopener">Alle Release-Notizen</a>
+      <p class="nh">🛡️ Sicherheit</p>
+      <ul>
+      <li><strong>Kein unverschlüsseltes Speichern mehr:</strong> Klappt das Verschlüsseln nicht, bleibt der letzte Stand erhalten und die App warnt dich</li>
+      <li><strong>Kein Datenverlust bei Lesefehlern:</strong> Kann die gespeicherte Datei nicht gelesen werden, wird sie aufbewahrt statt überschrieben, und die App erklärt, wie du eine Sicherung zurückholst</li>
+      <li><strong>Stärkere Sicherungs-Passwörter:</strong> mindestens 10 Zeichen, einfache Muster werden abgelehnt, deutlich mehr Schutz gegen Durchprobieren (600 000 Runden)</li>
+      <li><strong>Strengere Sicherheitsrichtlinie:</strong> Die Oberfläche führt nur noch den mitgelieferten Programmcode aus</li>
+      <li>Der Fingerabdruck des Signaturzertifikats steht jetzt auch auf der Download-Seite</li>
+      </ul>
+      <p>Ältere Sicherungen lassen sich weiterhin wiederherstellen.</p>
+      <a class="more" href="https://github.com/arthurtschik/Group_Checkan/releases/tag/v2.8" rel="noopener">Alle Release-Notizen</a>
     </div>
   </details>
   <!--news:end-->
@@ -61,6 +66,7 @@
   Group Checkan ist ein privates, nicht kommerzielles Hobbyprojekt. Diese Seite leitet nur auf den Download der Datei bei GitHub weiter.
   Soweit gesetzlich zulässig, übernehme ich für den Download, die Datei und die Nutzung der App keine Haftung; die Nutzung erfolgt auf eigenes Risiko.
   Die App ist ein persönliches Hilfsmittel und ersetzt keine vorgeschriebenen Anwesenheits-, Aufsichts- oder Dokumentationsnachweise.
+  Echte Versionen sind immer mit diesem Zertifikat signiert (SHA-256): 4C:C4:B3:A7:45:64:A3:E2:58:F8:53:82:4E:19:20:5F:1E:CF:7C:FA:F2:FD:AB:9D:23:6C:B0:FB:8D:95:8E:04
 
   <div class="legal">
     <details>
@@ -83,7 +89,9 @@
         <p>Die Seite speichert nichts bei dir, setzt keine Cookies und enthält keine Werbung oder Statistik. Sie wird bei GitHub Pages (GitHub Inc., USA) bereitgestellt, das beim Aufruf technisch bedingt deine IP-Adresse verarbeitet, zum Beispiel in Server-Protokollen. Das ist für die Auslieferung der Seite nötig (Art. 6 Abs. 1 lit. f DSGVO).</p>
         <h2>Download</h2>
         <p>Der Knopf führt zu GitHub (GitHub Inc., USA). Beim Herunterladen verarbeitet GitHub deine IP-Adresse nach den eigenen Datenschutzbestimmungen.</p>
-        <p>Beim Öffnen fragt die Seite bei GitHub das neueste Release ab, um die Version und den Download-Link anzuzeigen. Dabei erhält GitHub deine IP-Adresse.</p>
+        <p>Beim Öffnen fragt die Seite bei GitHub das neueste Release ab, um die Version und den Download-Link anzuzeigen. Dabei erhält GitHub deine IP-Adresse (Art. 6 Abs. 1 lit. f DSGVO; berechtigtes Interesse an einem aktuellen, korrekten Download-Link).</p>
+        <h2>Übermittlung in die USA</h2>
+        <p>GitHub ist nach dem EU-US Data Privacy Framework zertifiziert; Übermittlungen erfolgen auf Grundlage des Angemessenheitsbeschlusses der EU-Kommission (Art. 45 DSGVO). Wie lange GitHub Verbindungsdaten speichert, regelt das GitHub General Privacy Statement.</p>
         <h2>Link „Alle Apps“</h2>
         <p>Der Link führt zur Hauptseite mit allen Apps (ebenfalls GitHub Pages). Erst wenn du ihn antippst, wird eine Verbindung dorthin aufgebaut.</p>
         <h2>Deine Rechte</h2>

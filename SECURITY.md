@@ -11,13 +11,22 @@ Bitte **nicht** öffentlich als GitHub-Issue, sondern per E-Mail an arthurtschik
 
 | Maßnahme | Umsetzung |
 |---|---|
-| Verschlüsselung | Datendatei mit AES-256-GCM, Schlüssel im Android-Keystore (nicht exportierbar) |
+| Verschlüsselung | Datendatei mit AES-256-GCM, Schlüssel im Android-Keystore (nicht exportierbar). Es gibt **keinen** Rückfall auf unverschlüsseltes Speichern: Schlägt das Verschlüsseln fehl, bleibt der letzte Stand erhalten und die App warnt. |
+| Lesefehler | Kann die Datendatei nicht gelesen oder entschlüsselt werden, wird sie unverändert beiseitegelegt (nie überschrieben) und die App erklärt, wie man eine Sicherung wiederherstellt. |
 | Kein Backup / keine Geräteübertragung | `allowBackup=false` + `dataExtractionRules` (alles ausgeschlossen) |
 | Keine Datenübertragung | Die Oberfläche (WebView) lädt nur die eigene Datei; jede andere Anfrage wird in Android blockiert **und** per Content-Security-Policy verboten (`connect-src 'none'`, `img-src data:` …) |
+| Kein Inline-Code | Content-Security-Policy `script-src 'self'`: Programmcode kommt nur aus der mitgelieferten Datei `main.js`; eingeschleuste Skripte oder `on…`-Attribute werden nicht ausgeführt |
 | WebView minimal | kein Dateizugriff, kein Content-Zugriff, kein DOM-Storage, keine Geolocation, keine Fenster, Debugging aus, Schutz gegen Überlagerung (Tapjacking) |
 | Eingaben & Importe | Alle geladenen und importierten Daten werden Feld für Feld streng geprüft (Typ, Länge, Format, erlaubte Werte); unbekannte Felder werden verworfen. Alle Ausgaben werden HTML-escaped. |
-| Sicherungsdateien | optional AES-256-GCM, Schlüssel per PBKDF2-SHA256 (310 000 Runden), Passwort mind. 8 Zeichen; Parameter aus fremden Dateien werden begrenzt |
+| Sicherungsdateien | optional AES-256-GCM, Schlüssel per PBKDF2-SHA256 (600 000 Runden), Passwort mind. 10 Zeichen, einfache Muster werden abgelehnt; Parameter aus fremden Dateien werden begrenzt |
 | Import-Größe | max. 30 MB pro Datei |
+
+## Datenschutz in der App
+
+- Automatische Update-Prüfung ist standardmäßig **aus** (nur nach ausdrücklicher Zustimmung).
+- Option „Abwesenheit neutral erfassen“: „Entschuldigt“ statt „Krank“, damit keine Gesundheitsangaben entstehen.
+- „Vollständig löschen“ entfernt ein Kind samt aller erfassten Anwesenheiten (Art. 17 DSGVO).
+- Exporte mit „krank“-Einträgen zeigen einen Hinweis zur vertraulichen Weitergabe.
 
 ## Update-Kette
 

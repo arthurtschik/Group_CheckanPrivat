@@ -22,5 +22,7 @@ Bei **jedem neuen Release**:
 
 Aufbau und Stil wie die Seiten von Twitschik und Watschik (flach, zentriert, Dunkel/Hell nach Gerät), nur mit den
 Farben der App. Keine Zusatzeffekte oder zusätzlichen Elemente, die es auf den Vorbild-Seiten nicht gibt.
+Auch die App hat eine strenge Content-Security-Policy (`script-src 'self'`): kein Inline-Code und keine `onclick`-Attribute
+in `app/assets/` – Logik gehört nach `app/assets/main.js`, Schließen-Knöpfe nutzen `data-close`.
 Die Seite hat eine strenge Content-Security-Policy (kein Inline-Script/-Style); Release-Texte werden nur als Text
 eingesetzt, Links nur zu `github.com/arthurtschik/`.

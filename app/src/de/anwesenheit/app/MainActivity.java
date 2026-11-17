@@ -291,12 +291,24 @@ public class MainActivity extends Activity {
         return c.doFinal(raw, 5 + ivLen, raw.length - 5 - ivLen);
     }
 
-    /** Atomically writes the data file, encrypted. Falls back to plain text only if the keystore is broken, so no data is lost. */
-    private void writeData(String json) {
-        byte[] bytes = json.getBytes(UTF8);
+    /** Set when stored data could not be read; the file is moved aside (never overwritten) and the UI is told. */
+    private volatile String loadProblem = "";
+
+    private void moveAside(File f) {
+        f.renameTo(new File(getFilesDir(), "anwesenheit.unreadable-" + System.currentTimeMillis()));
+    }
+
+    /**
+     * Atomically writes the data file, always encrypted. If encryption or writing fails nothing is written
+     * (the previous encrypted file stays as it is) and false is returned so the UI can warn - the data is
+     * never stored in plain text.
+     */
+    private boolean writeData(String json) {
+        byte[] bytes;
         try {
-            bytes = encrypt(bytes);
-        } catch (Exception ignored) {
+            bytes = encrypt(json.getBytes(UTF8));
+        } catch (Exception e) {
+            return false;
         }
         try {
             File tmp = new File(getFilesDir(), "anwesenheit.json.tmp");
@@ -306,9 +318,11 @@ public class MainActivity extends Activity {
             out.close();
             if (!tmp.renameTo(dataFile())) {
                 dataFile().delete();
-                tmp.renameTo(dataFile());
+                if (!tmp.renameTo(dataFile())) return false;
             }
-        } catch (Exception ignored) {
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -591,6 +605,9 @@ public class MainActivity extends Activity {
                     raw = readAll(in);
                     in.close();
                 } catch (Exception e) {
+                    // never let the app start empty on top of real data: keep the file aside and tell the UI
+                    moveAside(f);
+                    loadProblem = "read";
                     return null;
                 }
                 if (!isEncrypted(raw)) {
@@ -603,17 +620,27 @@ public class MainActivity extends Activity {
                     return new String(decrypt(raw), UTF8);
                 } catch (Exception e) {
                     // key no longer available (e.g. app data moved to another device): keep the file aside, start empty
-                    f.renameTo(new File(getFilesDir(), "anwesenheit.unreadable-" + System.currentTimeMillis()));
+                    moveAside(f);
+                    loadProblem = "decrypt";
                     return null;
                 }
             }
         }
 
+        /** Returns false if the data could not be stored (encrypted); the UI then warns the user. */
         @JavascriptInterface
-        public void saveData(String json) {
+        public boolean saveData(String json) {
             synchronized (MainActivity.this) {
-                writeData(json);
+                return writeData(json);
             }
+        }
+
+        /** "" normally; "read" or "decrypt" once after stored data could not be loaded (file kept aside). */
+        @JavascriptInterface
+        public String loadProblem() {
+            String p = loadProblem;
+            loadProblem = "";
+            return p;
         }
 
         @JavascriptInterface

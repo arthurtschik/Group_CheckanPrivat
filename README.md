@@ -12,12 +12,12 @@ Android-Gerät öffnen (Android 7.0 oder neuer; einmalig „Installation aus unb
 
 - **Anwesenheit** – öffnet automatisch den heutigen Wochentag (am Wochenende den letzten Freitag)
   - Antippen = anwesend (mit Durchstreich-Animation), erneut antippen = zurücksetzen (mit „Rückgängig“)
-  - ⌂ früher abgeholt (mit Uhrzeit), 🌡 krank
+  - ⌂ früher abgeholt (mit Uhrzeit), 🌡 krank – oder neutral „entschuldigt“ (Einstellung „Abwesenheit neutral erfassen“)
   - Zähler, Fortschrittsbalken, Filter nach Gruppe, Klasse oder „offen“, Sortierung nach Vor- oder Nachname
   - „Fertig“-Effekt mit Vibration, sobald alle Kinder erfasst sind
 - **Kalender** – vergangene Tage ansehen, nachtragen und als Text-Tabelle exportieren; Monatsübersicht je Kind
 - **Stammdaten** – Kinder mit Vorname, Nachname, Gruppe (optional) und Klasse je Wochentag
-  - Reiter „Alle“ mit Suche, Wischen zum Löschen, Sortierung, Listen kopieren
+  - Reiter „Alle“ mit Suche, Wischen zum Löschen, „Vollständig löschen“ (Kind samt aller Anwesenheiten), Sortierung, Listen kopieren
   - Gruppen frei anlegen, umbenennen und löschen: Farbwörter färben die Gruppe, Tiere & Co. bekommen automatisch ein Emoji
   - Exporte (Tagesliste, Gesamtübersicht, Gesamtliste) und Datensicherung/Wiederherstellung (JSON)
 - **Profile** – getrennte Datenbestände; Pille oben links: antippen = verwalten, nach unten/oben wischen = wechseln
@@ -60,7 +60,7 @@ Android automatisch.
 
 | Pfad | Inhalt |
 |---|---|
-| `app/assets/index.html` | die komplette Oberfläche (HTML/CSS/JS) |
+| `app/assets/index.html`, `app/assets/main.js` | die Oberfläche (HTML/CSS) und ihre Logik (JS, eigene Datei wegen strenger Content-Security-Policy) |
 | `app/src/.../MainActivity.java` | Android-Hülle: WebView, verschlüsselte Speicherung, Teilen, Datei-Dialoge, Vibration, Updates |
 | `app/src/.../ApkProvider.java` | übergibt ein heruntergeladenes Update an den Android-Installer |
 | `build/build.py` | Build ohne Android SDK/Gradle: Manifest, Ressourcen, Icon, Dex, Signatur |
