@@ -16,6 +16,7 @@ Android-Gerät öffnen (Android 7.0 oder neuer; einmalig „Installation aus unb
   - Zähler, Fortschrittsbalken, Filter nach Gruppe, Klasse oder „offen“, Sortierung nach Vor- oder Nachname
   - „Fertig“-Effekt mit Vibration, sobald alle Kinder erfasst sind
 - **Kalender** – vergangene Tage ansehen, nachtragen und als Text-Tabelle exportieren; Monatsübersicht je Kind
+  - Erinnerung am Monatsende (letzter Werktag), die Monatsübersicht zu exportieren – mit „Später“ für den Anfang des Folgemonats
 - **Stammdaten** – Kinder mit Vorname, Nachname, Gruppe (optional) und Klasse je Wochentag
   - Reiter „Alle“ mit Suche, Wischen zum Löschen, „Vollständig löschen“ (Kind samt aller Anwesenheiten), Sortierung, Listen kopieren
   - Gruppen frei anlegen, umbenennen und löschen: Farbwörter färben die Gruppe, Tiere & Co. bekommen automatisch ein Emoji

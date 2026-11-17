@@ -30,17 +30,3 @@ in `app/assets/` – Logik gehört nach `app/assets/main.js`, Schließen-Knöpfe
 Die Seite hat eine strenge Content-Security-Policy (kein Inline-Script/-Style); Release-Texte werden nur als Text
 eingesetzt, Links nur zu `github.com/arthurtschik/`.
 
-## Vorgemerkt für das nächste Update
-
-**Erinnerung: Monatsliste exportieren** (Wunsch des Nutzers, noch nicht umgesetzt)
-- Am Ende jedes Monats fragt die App beim Öffnen, ob die Monatsübersicht (wie im Kalender „Monatsübersicht“)
-  exportiert werden soll. Knöpfe: **Exportieren** (öffnet den Export des Monats) und **Später**.
-- Zeitpunkt wählt die App selbst: der **letzte Werktag (Mo–Fr) des Monats**. Fällt das Monatsende aufs
-  Wochenende (z. B. der 31. ist ein Sonntag), wird schon am Freitag davor gefragt.
-- Wird die App an dem Tag nicht geöffnet, kommt die Frage beim nächsten Öffnen.
-- **Später** → erneute Frage am **Anfang des Folgemonats** (erster Werktag bzw. erstes Öffnen danach), dann
-  für den vergangenen Monat.
-- Pro Profil und Monat nur einmal erledigt merken (nach Export oder nach der zweiten Frage); keine Frage
-  für Monate ohne erfasste Anwesenheiten.
-- Nicht über den Zustimmungs- oder einen anderen offenen Dialog legen; Test mit festgestellter Uhr
-  (`p.clock.install`) für Monatsende unter der Woche, am Wochenende und das Verschieben.

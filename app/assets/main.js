@@ -163,6 +163,8 @@ function sanitizeDB(d){
   }
   for(const k of ["sort_today","sort_master"]) if(st[k]==="first"||st[k]==="last") out.settings[k]=st[k];
   if(Number.isInteger(st.retentionMonths)) out.settings.retentionMonths=st.retentionMonths;  // migrated later
+  if(isObj(st.monthExport)){ out.settings.monthExport={};
+    for(const [k,v] of Object.entries(st.monthExport).slice(0,60)) if(/^\d{4}-(0[1-9]|1[0-2])$/.test(k)&&(v===1||v===2)) out.settings.monthExport[k]=v; }
   return out;
 }
 const RET_ALLOWED=[0,1,3,6,12,24];
@@ -516,12 +518,56 @@ function showConsentIfNeeded(){
     ROOT.settings.termsAccepted=TERMS_VERSION; ROOT.settings.termsAcceptedAt=new Date().toISOString(); ROOT.settings.autoUpdate=$("#cAuto").checked;
     saveNow(); haptic("success"); ov.classList.add("hide"); setTimeout(()=>ov.remove(),300);
     if(ROOT.settings.autoUpdate) setTimeout(()=>autoUpdateCheck(),800);
+    setTimeout(checkMonthReminder,700);
   };
 }
 function autoUpdateCheck(){
   if(!ROOT.settings.autoUpdate||!N||!N.checkUpdate) return;
   if(Date.now()-(ROOT.settings.lastUpdateCheck||0)<20*3600*1000) return;
   startUpdateCheck(true);
+}
+
+/* ---------- Reminder: export the month overview ----------
+   Asked on the last workday (Mon-Fri) of a month, or on the next opening after it. "Später" asks once more
+   from the first workday of the following month. Per profile: DB.settings.monthExport = {"YYYY-MM": 1 asked | 2 done}. */
+const ym=d=>d.getFullYear()+"-"+pad(d.getMonth()+1);
+const isWorkday=d=>d.getDay()>=1&&d.getDay()<=5;
+function lastWorkdayOf(y,m){const d=new Date(y,m+1,0);while(!isWorkday(d))d.setDate(d.getDate()-1);return d}
+function firstWorkdayOf(y,m){const d=new Date(y,m,1);while(!isWorkday(d))d.setDate(d.getDate()+1);return d}
+function recordedDaysIn(y,m){const pre=y+"-"+pad(m+1)+"-";return Object.entries(DB.records).filter(([k,r])=>k.startsWith(pre)&&Object.keys(r.entries).length).length}
+/** Month to ask about now, or null. final = no further reminder after this one. */
+function monthReminderDue(now){
+  const st=DB.settings.monthExport||{}, today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  for(const month of [new Date(now.getFullYear(),now.getMonth()-1,1),new Date(now.getFullYear(),now.getMonth(),1)]){
+    const y=month.getFullYear(), m=month.getMonth(), s=st[ym(month)]||0;
+    if(s>=2||!recordedDaysIn(y,m)) continue;
+    const last=lastWorkdayOf(y,m), next=firstWorkdayOf(y,m+1);
+    if(s===0&&today>=last) return {month,final:today>=next};
+    if(s===1&&today>=next) return {month,final:true};
+  }
+  return null;
+}
+function markMonthExported(month){
+  const st=DB.settings.monthExport=DB.settings.monthExport||{}, now=new Date(), oldest=ym(new Date(now.getFullYear(),now.getMonth()-24,1));
+  st[ym(month)]=2; for(const k of Object.keys(st)) if(k<oldest) delete st[k];
+  save();
+}
+function openMonthExport(m){
+  markMonthExported(m);
+  openTextSheet(`Monatsübersicht · ${MONTHS[m.getMonth()]} ${m.getFullYear()}`,buildMonthText(m),`Anwesenheit_Monat_${m.getFullYear()}-${pad(m.getMonth()+1)}_${MONTHS[m.getMonth()]}.txt`);
+}
+function checkMonthReminder(){
+  if(sheetOpen||$("#consent")||(ROOT.settings.termsAccepted||0)<TERMS_VERSION) return;
+  const now=new Date(), due=monthReminderDue(now); if(!due) return;
+  const m=due.month, st=DB.settings.monthExport=DB.settings.monthExport||{};
+  st[ym(m)]=due.final?2:1; save();                       // dismissing the sheet counts as "Später"
+  const name=MONTHS[m.getMonth()], days=recordedDaysIn(m.getFullYear(),m.getMonth()), over=now>=new Date(m.getFullYear(),m.getMonth()+1,1);
+  haptic("light");
+  openSheet(`<h2>Monatsliste ${esc(name)} exportieren?</h2>
+    <p class="hint" style="margin:-6px 0 14px">${over?`Der ${esc(name)} ist vorbei.`:`Der ${esc(name)} ist fast vorbei.`} Möchtest du die Monatsübersicht (${days} erfasste ${days===1?"Tag":"Tage"}${ROOT.profiles.length>1?`, Profil „${esc(activeProfile().name)}“`:""}) jetzt speichern oder teilen?${due.final?"":" Bei „Später“ fragt die App am Anfang des nächsten Monats noch einmal."}</p>
+    <div class="actions"><button class="btn ghost" id="mrLater">${due.final?"Nicht nötig":"Später"}</button><button class="btn" id="mrGo">${I.list} Exportieren</button></div>`);
+  $("#mrLater").onclick=()=>{haptic("tick");closeSheet();if(!due.final)setTimeout(()=>showToast("Erinnerung am Anfang des nächsten Monats"),250)};
+  $("#mrGo").onclick=()=>{haptic("light");openMonthExport(m)};
 }
 
 /* ---------- Profiles ---------- */
@@ -548,6 +594,7 @@ function switchProfile(id,dir){
   S.filter="all"; S.mSearch=""; S.calSel=null;
   updatePill(dir||0); closeSheet(); render();
   showToast("Profil: "+activeProfile().name);
+  setTimeout(checkMonthReminder,500);
 }
 function stepProfile(delta){
   const n=ROOT.profiles.length; if(n<2){haptic("warn");showToast("Nur ein Profil vorhanden – tippen zum Anlegen");return}
@@ -791,7 +838,7 @@ function renderCalendar(){
   $("#cNext").onclick=()=>{haptic("tick");S.calMonth=new Date(m.getFullYear(),m.getMonth()+1,1);renderCalendar()};
   document.querySelectorAll(".cday").forEach(b=>b.onclick=()=>{haptic("tick");S.calSel=b.dataset.k;const d=fromIso(b.dataset.k);if(d.getMonth()!==m.getMonth())S.calMonth=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()});
   const co=$("#cOpen"); if(co) co.onclick=()=>{haptic("light");S.date=fromIso(S.calSel);S.filter="all";go("today")};
-  $("#cMonth").onclick=()=>{haptic("light");openTextSheet(`Monatsübersicht · ${MONTHS[m.getMonth()]} ${m.getFullYear()}`,buildMonthText(m),`Anwesenheit_Monat_${m.getFullYear()}-${pad(m.getMonth()+1)}_${MONTHS[m.getMonth()]}.txt`)};
+  $("#cMonth").onclick=()=>{haptic("light");openMonthExport(m)};
   const ce=$("#cExport"); if(ce) ce.onclick=()=>{haptic("light");openExport(fromIso(S.calSel))};
 }
 
@@ -1425,7 +1472,7 @@ window.onBackPressed=function(){
 };
 window.setTheme=function(dark){document.documentElement.dataset.theme=dark?"dark":"light"};
 // Auto-refresh when app is resumed on a new day
-window.onAppResume=function(){applyRetention();const tw=todayWork();if(S.view==="today"&&iso(S.date)!==iso(tw.date)&&S.lastAutoDate!==iso(tw.date)){S.date=tw.date;S.weekendHint=tw.weekend;S.lastAutoDate=iso(tw.date);render()}};
+window.onAppResume=function(){applyRetention();const tw=todayWork();if(S.view==="today"&&iso(S.date)!==iso(tw.date)&&S.lastAutoDate!==iso(tw.date)){S.date=tw.date;S.weekendHint=tw.weekend;S.lastAutoDate=iso(tw.date);render()}checkMonthReminder()};
 S.lastAutoDate=iso(todayWork().date);
 
 if(!N&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches) setTheme(true);
@@ -1435,3 +1482,4 @@ render();
 showConsentIfNeeded();
 showLoadProblem();
 autoUpdateCheck();
+setTimeout(checkMonthReminder,600);
